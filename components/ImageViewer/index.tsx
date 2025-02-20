@@ -1,11 +1,24 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Share2, X, Download, Eye } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Share2,
+  X,
+  Download,
+  Eye,
+} from "lucide-react";
 import { cloudonaryUrl } from "../../constant/Cloudinary";
 import { Controls } from "./Controls";
 import ShareLoad from "../common/ShareLoad";
 import ImageLoad from "../common/ImageLoad";
+
+declare global {
+  interface Window {
+    FB: any;
+  }
+}
 
 const ImageViewer = ({ imageIds, initialIndex, onClose }) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
@@ -133,19 +146,55 @@ const ImageViewer = ({ imageIds, initialIndex, onClose }) => {
     // Hide animation after 2 seconds
     setTimeout(() => setShowShareAnimation(false), 2000);
 
-    // Open Facebook app for sharing
-    const facebookShareUrl = `fb://share?link=${encodeURIComponent(
-      shareableLink
-    )}`;
-    window.location.href = facebookShareUrl;
+    const shareToFacebook = () => {
+      if (window.FB) {
+        // If FB SDK is loaded, use it for better sharing experience
+        window.FB.ui(
+          {
+            method: "share",
+            href: shareableLink,
+          },
+          function (response) {
+            // Optional callback after sharing
+            console.log(response ? "Share completed" : "Share canceled");
+          }
+        );
+      } else {
+        // Try mobile app first on mobile devices
+        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+          // Try to open in Facebook app first
+          const iframe = document.createElement("iframe");
+          iframe.style.display = "none";
+          iframe.src = `fb://share?link=${encodeURIComponent(shareableLink)}`;
+          document.body.appendChild(iframe);
 
-    // Fallback to web URL if app doesn't open
-    setTimeout(() => {
-      window.location.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-        shareableLink
-      )}`;
-    }, 500);
+          // Fallback to browser after short timeout if app doesn't open
+          setTimeout(() => {
+            // Open in new window to prevent navigation away from the gallery
+            window.open(
+              `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                shareableLink
+              )}`,
+              "_blank",
+              "width=600,height=400"
+            );
+            // Clean up iframe
+            document.body.removeChild(iframe);
+          }, 300);
+        } else {
+          // On desktop, just open the share dialog in a popup
+          window.open(
+            `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+              shareableLink
+            )}`,
+            "_blank",
+            "width=600,height=400"
+          );
+        }
+      }
+    };
 
+    shareToFacebook();
   };
 
   if (loading) {

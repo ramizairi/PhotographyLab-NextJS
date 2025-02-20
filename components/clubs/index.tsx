@@ -14,7 +14,17 @@ export default function ClubsGallery() {
     const fetchClubs = async () => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/clubs`);
-        setClubs(response.data);
+        
+        // Sort clubs to prioritize Photography Lab and HEC FA
+        const sortedClubs = response.data.sort((a, b) => {
+          if (a.name === "Photography Lab") return -1;
+          if (b.name === "Photography Lab") return 1;
+          if (a.name === "HEC FA") return -1;
+          if (b.name === "HEC FA") return 1;
+          return 0;
+        });
+        
+        setClubs(sortedClubs);
         setIsLoading(false);
       } catch (err) {
         setError("Failed to fetch clubs");
@@ -68,8 +78,8 @@ export default function ClubsGallery() {
                 alt={club.name}
                 fill
                 className="object-cover object-center grayscale filter transition-all duration-300 ease-in-out group-hover:filter-none"
-                quality={50} // Adjust quality (1-100)
-                priority={false} // Enable lazy loading
+                quality={50} 
+                priority={club.name === "Photography Lab" || club.name === "HEC FA"}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70 transition-opacity duration-300 group-hover:opacity-90" />
             </div>

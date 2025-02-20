@@ -21,7 +21,7 @@ const AlbumCard = ({
 }) => (
   <Link
     href={`${window.location.href}/album/${_id}`}
-    className="group block overflow-hidden rounded-xl bg-gradient-to-br from-gray-900 to-gray-800 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+    className="group block overflow-hidden rounded-xl bg-gradient-to-br from-black to-gray-800 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
   >
     <div className="relative aspect-[4/3] w-full overflow-hidden">
       <Image
@@ -59,7 +59,7 @@ const AlbumCard = ({
             {photographers.slice(0, 3).map((photographer) => (
               <div key={photographer._id} className="relative">
                 <Image
-                  src={photographer.avatar || "/placeholder.svg"}
+                  src={photographer.avatar || "/personHolder.svg"}
                   alt={photographer.name}
                   width={28}
                   height={28}

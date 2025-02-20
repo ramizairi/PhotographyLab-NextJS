@@ -1,5 +1,5 @@
 import React from "react";
-import { FaInstagram, FaTwitter, FaLinkedin, FaGithub } from "react-icons/fa";
+import { FaInstagram, FaFacebook, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   const navigationLinks = [
@@ -52,7 +52,7 @@ const Footer = () => {
               <h3 className="font-semibold text-white">Connect</h3>
               <div className="flex flex-wrap gap-4">
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/photographylabiheccarthage/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800 transition-colors duration-200 hover:bg-red-500"
@@ -60,28 +60,20 @@ const Footer = () => {
                   <FaInstagram size={20} className="text-white" />
                 </a>
                 <a
-                  href="https://twitter.com"
+                  href="https://www.facebook.com/PhotographyLABIHEC"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800 transition-colors duration-200 hover:bg-red-500"
                 >
-                  <FaTwitter size={20} className="text-white" />
+                  <FaFacebook size={20} className="text-white" />
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/photography-lab-ihec-carthage-615a7b17b/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800 transition-colors duration-200 hover:bg-red-500"
                 >
                   <FaLinkedin size={20} className="text-white" />
-                </a>
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-800 transition-colors duration-200 hover:bg-red-500"
-                >
-                  <FaGithub size={20} className="text-white" />
                 </a>
               </div>
             </div>
