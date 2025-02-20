@@ -41,3 +41,18 @@ export interface Feature {
   paragraph: string;
 };
 
+export interface GalleryImageProps {
+  image: ImageProps;
+  index: number;
+  onClick: () => void;
+}
+
+export interface AlbumGalleryProps {
+  images: ImageProps[];
+}
+
+export interface ImageDataResponse {
+  data: ImageProps;
+  loading: boolean;
+  error: any;
+}

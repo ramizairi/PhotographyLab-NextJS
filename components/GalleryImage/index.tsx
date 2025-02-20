@@ -4,7 +4,7 @@ import { Heart, Download, Eye } from "lucide-react";
 import { useImageData } from "../../hooks/useImageData";
 import Loading from "../common/Loading";
 
-export const GalleryImage = ({ imageId, index, onClick }) => {
+export const GalleryImage = ({ key, imageId, index, onClick }) => {
     const { data: imageData, loading, error } = useImageData(imageId);
     const cloudinaryUrl = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/fetch/f_auto,q_auto,w_800/`;
 

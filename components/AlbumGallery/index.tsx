@@ -22,14 +22,13 @@ export const AlbumGallery = ({ images }) => {
             transition={{ duration: 0.6 }}
             className="grid grid-cols-2 gap-1 sm:gap-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
           >
-            {images.map((image, index) => (
-              <div key={image._id}>
-                <GalleryImage
-                  imageId={image._id}
-                  index={index}
-                  onClick={() => handleImageClick(index)}
-                />
-              </div>
+            {images.map((image: any, index: number) => (
+              <GalleryImage
+                key={image._id}
+                imageId={image._id}
+                index={index}
+                onClick={() => handleImageClick(index)}
+              />
             ))}
           </motion.div>
 
