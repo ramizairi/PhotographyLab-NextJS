@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@supports (font: -apple-system-body) and (-webkit-appearance: none) {
+  img[loading="lazy"] {
+    clip-path: inset(0.6px);
+  }
+}
+
+:root {
+  --font-family-serif: 'Display Playfair';
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+/* Brands slider styles */
+.brands-slider {
+  overflow: hidden;
+  padding: 20px 0;
+  position: relative;
+  width: 100%;
+}
+
+.brands-slide-track {
+  display: flex;
+  width: fit-content;
+}
+
+.brand-slide {
+  flex-shrink: 0;
+}
+
+/* Desktop styles */
+@media (min-width: 768px) {
+  .brands-slide-track {
+    animation: slide 30s linear infinite;
+  }
+
+  .brand-slide {
+    width: 200px;
+    margin: 0 20px;
+  }
+
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+  .brands-slide-track {
+    animation: slidePhone 30s linear infinite;
+  }
+
+  .brand-slide {
+    width: 100vw;
+    padding: 0 20px;
+  }
+
+  @keyframes slidePhone {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+}
+
+/* Pause animation on hover */
+.brands-slider:hover .brands-slide-track {
+  animation-play-state: paused;
+}
+
+/* Define size classes */
+.small {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+.medium {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.large {
+  grid-column: span 3;
+  grid-row: span 3;
+}
+
+/* Grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-auto-rows: minmax(150px, auto);
+  gap: 1rem;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}

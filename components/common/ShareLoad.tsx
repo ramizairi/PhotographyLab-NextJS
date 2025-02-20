@@ -1,0 +1,24 @@
+import React from "react";
+import Image from "next/image";
+
+interface LoadingProps {
+  message: string;
+}
+
+function ShareLoad({ message }: LoadingProps) {
+  return (
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/95">
+      <div className="relative mb-4 flex h-48 w-48 flex-col items-center">
+        <Image
+          src="/share/facebook.gif"
+          alt="Share"
+          width={200}
+          height={200}
+        />
+      </div>
+    <div className="text-xl text-white">{message}</div>
+    </div>
+  );
+}
+
+export default ShareLoad;
