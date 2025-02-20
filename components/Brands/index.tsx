@@ -15,7 +15,9 @@ const Brands = () => {
             <div className="brands-slider">
               <div className="brands-slide-track">
                 {extendedBrandsData.map((brand, index) => (
-                  <SingleBrand key={`${brand.id}-${index}`} brand={brand} />
+                  <div key={`${brand.id}-${index}`}>
+                    <SingleBrand brand={brand} />
+                  </div>
                 ))}
               </div>
             </div>
