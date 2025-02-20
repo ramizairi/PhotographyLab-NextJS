@@ -28,6 +28,7 @@ export interface Menu {
 
 export interface Brand {
   id: number;
+  key?: string;
   name: string;
   href: string;
   image: string;
