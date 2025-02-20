@@ -111,7 +111,7 @@ const Footer = () => {
                   PHOTOGRAPHYLAB,{" "}
                 </a>
                 <a
-                  href="https://www.ihec.rnu.tn"
+                  href="https://ihec.rnu.tn/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-blue-700"
@@ -123,7 +123,7 @@ const Footer = () => {
               <p className="text-sm text-gray-400">
                 Made with 💛 by{" "}
                 <a
-                  href="https://hecfa.com"
+                  href="https://www.hecfa.tn/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#fcd53f] hover:text-yellow-500"
