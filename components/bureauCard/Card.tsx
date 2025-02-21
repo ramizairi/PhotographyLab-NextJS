@@ -40,6 +40,7 @@ export default function MemberCard({ member, index }: MemberProps) {
           <Image
             src={member.image || "/placeholder.svg"}
             alt={member.name}
+            priority
             layout="fill"
             objectFit="cover"
             className="grayscale filter transition-all duration-500 ease-out group-hover:grayscale-0"
