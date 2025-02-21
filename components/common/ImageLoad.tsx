@@ -12,6 +12,7 @@ function ShareLoad({ message }: LoadingProps) {
         <Image
           src="/loading/imageLoad.gif"
           alt="LoadImage"
+          unoptimized
           width={150}
           height={150}
         />

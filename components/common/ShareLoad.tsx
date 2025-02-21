@@ -12,6 +12,7 @@ function ShareLoad({ message }: LoadingProps) {
         <Image
           src="/share/facebook.gif"
           alt="Share"
+          unoptimized
           width={200}
           height={200}
         />

@@ -30,11 +30,10 @@ const Home = () => {
               <div className="md:w-8/12">
                 <div className="hover:scale-102 overflow-hidden shadow-2xl transition-transform duration-300">
                   <Image
-                    src="/bureau/all.PNG?height=600&width=800"
+                    src="/bureau/all.webp?height=600&width=800"
                     alt="Services"
                     width={800}
                     height={600}
-                    quality={100}
                     className="h-auto w-full object-cover"
                   />
                 </div>

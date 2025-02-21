@@ -19,6 +19,7 @@ function Loading({ message }: LoadingProps) {
         <Image
           src="/loading/loading.gif"
           alt="Loading"
+          unoptimized
           width={200}
           height={200}
         />

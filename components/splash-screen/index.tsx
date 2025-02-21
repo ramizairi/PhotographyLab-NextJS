@@ -62,6 +62,7 @@ export function SplashScreen() {
           src="/loading/loading.gif"
           alt="Loading"
           width={200}
+          unoptimized
           height={200}
         />
       </div>
