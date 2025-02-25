@@ -16,7 +16,7 @@ const H1 = ({
           data-wow-delay=".1s"
           style={{ maxWidth: width, marginBottom: mb }}
         >
-          <h2 className="font-bold text-5xl self-center inline-block bg-gradient-to-r from-blue-800 via-white/90 to-red-700 bg-clip-text text-transparent p-2">
+          <h2 className="font-bold text-5xl self-center inline-block bg-gradient-to-r from-stone-400 via-white/90 to-stone-500 bg-clip-text text-transparent p-2">
             {title}
           </h2>
         </div>
