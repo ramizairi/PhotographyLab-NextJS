@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Linkedin } from "lucide-react";
-
+import Link from "next/link";
 interface MemberProps {
   member: {
     name: string;
@@ -13,6 +13,8 @@ interface MemberProps {
   };
   index: number;
 }
+
+const cloudinaryUrl = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/fetch/f_auto,q_auto,w_800/`;
 
 export default function MemberCard({ member, index }: MemberProps) {
   return (
@@ -38,7 +40,7 @@ export default function MemberCard({ member, index }: MemberProps) {
         {/* Image container with grayscale effect */}
         <div className="relative h-full w-full transform transition-transform duration-700 group-hover:scale-110">
           <Image
-            src={member.image || "/placeholder.svg"}
+            src={cloudinaryUrl + member.image}
             alt={member.name}
             priority
             layout="fill"
@@ -69,21 +71,30 @@ export default function MemberCard({ member, index }: MemberProps) {
             </p>
 
             {/* LinkedIn button */}
-            <motion.a
-              href={member.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center rounded-full border border-white/20 
-                       bg-white/10 px-3 py-1.5 text-xs text-white 
-                       backdrop-blur-md transition-all duration-300 
-                       hover:border-white/40 hover:bg-white/20
-                       sm:px-4 sm:py-2 sm:text-sm"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <Link
+              href={
+                member.linkedin.startsWith("http")
+                  ? member.linkedin
+                  : `https://${member.linkedin}`
+              }
+              passHref
+              legacyBehavior
             >
-              <Linkedin className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4" />
-              <span>Connect</span>
-            </motion.a>
+              <motion.a
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center rounded-full border border-white/20 
+               bg-white/10 px-3 py-1.5 text-xs text-white 
+               backdrop-blur-md transition-all duration-300 
+               hover:border-white/40 hover:bg-white/20
+               sm:px-4 sm:py-2 sm:text-sm"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Linkedin className="mr-1.5 h-3 w-3 sm:mr-2 sm:h-4 sm:w-4" />
+                <span>Connect</span>
+              </motion.a>
+            </Link>
           </div>
         </div>
       </div>

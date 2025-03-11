@@ -6,6 +6,7 @@ import Link from "next/link";
 const navigationLinks = [
   { label: "Clubs", href: "/club" },
   { label: "Events", href: "/club/67b339b5456d5d242b97d7bd" },
+  { label: "Blog", href: "/blog" },
   { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },

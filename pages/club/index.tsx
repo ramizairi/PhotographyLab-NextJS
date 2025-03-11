@@ -10,7 +10,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Clubs",
   description:
-    "Immerse yourself in a world of passion, creativity, and community. Discover our vibrant clubs at HEC Montreal.",
+    "Immerse yourself in a world of passion, creativity, and community. Discover our vibrant clubs at IHEC CARTHAGE.",
 };
 
 export default function ClubPage() {

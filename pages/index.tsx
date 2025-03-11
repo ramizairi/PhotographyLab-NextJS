@@ -11,7 +11,7 @@ import ClubsGallery from "../components/clubs";
 import ClubMembers from "../components/bureauCard/index";
 import Brands from "../components/Brands";
 import Features from "../components/Video";
-
+import BlogPage from "./blog";
 const Home: NextPage = () => {
   const [isSplashScreenVisible, setIsSplashScreenVisible] = useState(true);
 
@@ -46,6 +46,7 @@ const Home: NextPage = () => {
           <ClubMembers />
           <Brands />
           <ClubsGallery />
+          <BlogPage />
         </>
       )}
     </Layout>

@@ -1,6 +1,6 @@
 module.exports = {
   images: {
-    unoptimized: true, // Disable Next.js image optimization on CPanel
+    unoptimized: true,
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
