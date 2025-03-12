@@ -1,5 +1,4 @@
 import React from "react";
-import { FaInstagram, FaFacebook, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   const navigationLinks = [

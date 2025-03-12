@@ -4,6 +4,5 @@
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
   "/club/[id]/album/[photoId]": "pages/club/[id]/album/[photoId].js",
-  "/club/[id]": "pages/club/[id].js",
   "/share/[id]": "pages/share/[id].js"
 }
