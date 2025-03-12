@@ -3,6 +3,6 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
-  "/club/[id]/album/[photoId]": "pages/club/[id]/album/[photoId].js",
-  "/share/[id]": "pages/share/[id].js"
+  "/share/[id]": "pages/share/[id].js",
+  "/club/[id]/album/[photoId]": "pages/club/[id]/album/[photoId].js"
 }
