@@ -51,6 +51,14 @@ const ImageViewer = ({ imageIds, initialIndex, onClose }) => {
     fetchImages();
   }, [imageIds]);
 
+
+  const paginate = useCallback((newDirection) => {
+    setDirection(newDirection);
+    setCurrentIndex(
+      (prev) => (prev + newDirection + images.length) % images.length
+    );
+  }, [images.length]);
+
   // Auto-play functionality
   useEffect(() => {
     let interval;
@@ -60,7 +68,7 @@ const ImageViewer = ({ imageIds, initialIndex, onClose }) => {
       }, 3000);
     }
     return () => clearInterval(interval);
-  }, [isPlaying, currentIndex]);
+  }, [isPlaying, currentIndex, paginate]);
 
   const slideVariants = {
     enter: (direction) => ({
@@ -82,13 +90,6 @@ const ImageViewer = ({ imageIds, initialIndex, onClose }) => {
   const swipeConfidenceThreshold = 10000;
   const swipePower = (offset, velocity) => {
     return Math.abs(offset) * velocity;
-  };
-
-  const paginate = (newDirection) => {
-    setDirection(newDirection);
-    setCurrentIndex(
-      (prev) => (prev + newDirection + images.length) % images.length
-    );
   };
 
   const getOriginalUrl = (path) => {

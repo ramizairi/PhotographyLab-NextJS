@@ -1,7 +1,7 @@
 // pages/index.js
 import Head from "next/head";
 import { useState } from "react";
-
+import Image from "next/image";
 export default function Home() {
   const [imageUrl, setImageUrl] = useState("https://i.ibb.co/DgRqsgfJ/ugte.jpg");
 
@@ -34,11 +34,13 @@ export default function Home() {
       <main className="container mx-auto px-4 py-8">
         <div className="mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow-lg">
           <div className="relative">
-            {/* Image container */}
-            <img
+            <Image
               src={imageUrl}
               alt="Shareable content"
               className="h-64 w-full object-cover"
+              layout="responsive"
+              width={700}
+              height={475}
             />
 
             {/* Share button */}

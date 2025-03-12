@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { Camera, Eye } from "lucide-react";
 import Layout from "../../../components/layout";
 import Loading from "../../../components/common/Loading";
+import Head from "next/head";
 
 const AlbumCard = ({
   _id,
@@ -141,13 +142,13 @@ export default function ClubPage() {
 
   return (
     <Layout>
-      <head>
+      <Head>
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4159979187111890"
           crossOrigin="anonymous"
         ></script>
-      </head>
+      </Head>
       <div className="min-h-screen bg-black text-gray-100">
         <header className="relative h-96 overflow-hidden">
           <Image

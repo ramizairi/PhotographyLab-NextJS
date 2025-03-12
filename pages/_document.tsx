@@ -1,4 +1,5 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
+import Script from "next/script";
 
 class MyDocument extends Document {
   render() {
@@ -15,8 +16,9 @@ class MyDocument extends Document {
           <meta name="twitter:description" content="Frame Your Life." />
 
           {/* Google Analytics */}
-          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXX-X"></script>
-          <script
+          <Script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXX-X" />
+          <Script
+            id="google-analytics"
             dangerouslySetInnerHTML={{
               __html: `
                 window.dataLayer = window.dataLayer || [];

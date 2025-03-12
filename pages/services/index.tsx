@@ -1,5 +1,6 @@
 import { Camera, Film, FileVideo, Aperture, PenTool, Star } from "lucide-react";
 import Layout from "../../components/layout";
+import Link from "next/link";
 
 const services = [
   {
@@ -92,12 +93,12 @@ export default function Home() {
                         TND
                       </span>
                     </p>
-                    <a
+                    <Link
                       href="/contact"
                       className="w-full rounded-lg bg-gradient-to-r from-red-500 to-pink-600 px-3 py-2 text-center text-xs font-medium text-white transition-all duration-300 hover:opacity-90 hover:shadow-lg sm:w-auto sm:px-4 sm:text-sm"
                     >
                       Book Now
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

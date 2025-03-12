@@ -1,5 +1,7 @@
+import Image from "next/image";
+
 export default function Logo() {
   return (
-    <img src="/logo/logo-white.png" alt="" srcSet="" />
+    <Image src="/logo/logo-white.png" alt="logo" />
   );
 }

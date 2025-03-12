@@ -10,7 +10,7 @@ const AlbumPage = ({ album, error }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
 
   if (error) {
-    return (
+    return (  
       <div className="flex min-h-screen items-center justify-center bg-black">
         <div className="text-xl text-red-500">
           Error loading gallery: {error}
