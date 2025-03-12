@@ -53,7 +53,7 @@ const Home = () => {
                   <p className="text-lg leading-relaxed text-gray-300">
                   Founded in 2016, the Photography Lab at IHEC Carthage is a
                   vibrant hub for audiovisual enthusiasts! 🎥📸 More than just
-                  a club, it's a creative space where talent meets
+                  a club, it&apos;s a creative space where talent meets
                   opportunity. Through immersive workshops and inspiring
                   events, we empower members to refine their skills, connect
                   with like-minded peers, and capture unforgettable moments.

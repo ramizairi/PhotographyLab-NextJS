@@ -16,7 +16,7 @@ const ImageNotFound = () => {
                 />
                 <h1 className="mb-4 text-3xl font-bold">Image Not Found</h1>
                 <p className="mb-8 text-gray-400">
-                    The image you're looking for doesn't exist or has been removed.
+                    The image you&apos;re looking for doesn&apos;t exist or has been removed.
                 </p>
                 <Link
                     href="/"

@@ -71,7 +71,7 @@ export default function ClubPage() {
             Our Clubs
           </h2>
           <p className="mx-auto mb-12 max-w-3xl text-center text-xl text-gray-300">
-            From photography enthusiasts capturing life's precious moments to
+            From photography enthusiasts capturing life&apos;s precious moments to
             sports clubs pushing physical limits, our diverse range of clubs
             offers something for everyone. Join us and be part of a community
             that celebrates passion, creativity, and personal growth.
