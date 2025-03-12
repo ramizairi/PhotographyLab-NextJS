@@ -60,8 +60,8 @@ export default function BlogPage() {
         <h1 className="mb-6 text-center text-3xl font-bold">Latest Articles</h1>
 
         {articles.length === 0 ? (
-          <div className="rounded-lg bg-gray-100 p-6 text-center dark:bg-gray-800">
-            <p className="text-gray-700 dark:text-gray-300">
+          <div className="rounded-lg bg-stone-800 p-6 text-center dark:bg-gray-500">
+            <p className="text-gray-500 dark:text-gray-300">
               No articles found
             </p>
           </div>
