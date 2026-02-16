@@ -48,8 +48,10 @@ https://www.youtube.com/watch?v=81tFbOX8WrI
 ## 📂 Project Structure
 
     .
-    ├── app/ or pages/        # Application routes
+    ├── pages/                # Application routes
     ├── components/           # Reusable UI components
+    ├── constant/  
+    ├── hooks/  
     ├── lib/                  # Utilities and Cloudinary logic
     ├── public/               # Static assets
     ├── styles/               # Global styles
@@ -62,8 +64,8 @@ https://www.youtube.com/watch?v=81tFbOX8WrI
 ### 1️⃣ Clone the repository
 
 ``` bash
-git clone <your-repository-url>
-cd photographylab
+git clone https://github.com/ramizairi/PhotographyLab-NextJS.git
+cd PhotographyLab-NextJS
 ```
 
 ### 2️⃣ Install dependencies
@@ -132,12 +134,6 @@ npm run start
 -   Responsive layout
 -   Clean component structure
 -   Production-ready deployment
-
-------------------------------------------------------------------------
-
-## 📜 License
-
-Specify your license here (MIT / Proprietary / etc.)
 
 ------------------------------------------------------------------------
 
