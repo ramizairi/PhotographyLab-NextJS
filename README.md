@@ -47,5 +47,6 @@ Deployed on **Vercel**.
 ### 1) Install dependencies
 ```bash
 npm install
+```
 
 ### Give Me ⭐ For Support
