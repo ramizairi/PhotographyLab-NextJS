@@ -1,32 +1,51 @@
-# Next.js & Cloudinary example app
+# PhotographyLab — Next.js + Tailwind + Cloudinary
 
-This example shows how to create an image gallery site using Next.js, [Cloudinary](https://cloudinary.com), and [Tailwind](https://tailwindcss.com).
+Modern photography / portfolio web app built with **Next.js**, styled with **Tailwind CSS**, and fetching images from **Cloudinary**.  
+Deployed on **Vercel**.
 
-## Deploy your own
+## Live Demo
+- Website: https://photographylab-front-4u9c-788ifup3a-rami-zairis-projects.vercel.app/
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or view the demo [here](https://nextconf-images.vercel.app/)
+---
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-cloudinary&project-name=nextjs-image-gallery&repository-name=with-cloudinary&env=NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,CLOUDINARY_API_KEY,CLOUDINARY_API_SECRET,CLOUDINARY_FOLDER&envDescription=API%20Keys%20from%20Cloudinary%20needed%20to%20run%20this%20application.)
+## 🎥 Demo Video (Execution)
+▶[Click Here](https://www.youtube.com/watch?v=81tFbOX8WrI) 
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
 
-## How to use
+## ✨ Features
+- Responsive, modern UI (Tailwind)
+- Image gallery / assets fetched from Cloudinary
+- Fast performance with Next.js
+- Production deployment with Vercel
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example::
+> Add/adjust feature bullets to match your project exactly:
+- [ ] Auth / Admin
+- [ ] Categories / tags
+- [ ] Search / filters
+- [ ] Contact form
+- [ ] SEO metadata
 
+---
+
+## 🧱 Tech Stack
+- **Next.js** (React)
+- **Tailwind CSS**
+- **Cloudinary** (image hosting + delivery)
+- **Vercel** (deployment)
+
+---
+
+## ✅ Requirements
+- Node.js (LTS recommended)
+- npm / yarn / pnpm
+
+---
+
+## ⚙️ Getting Started (Local)
+
+### 1) Install dependencies
 ```bash
- npx create-next-app --example with-cloudinary nextjs-image-gallery
-```
+npm install
 
-```bash
-yarn create next-app --example with-cloudinary nextjs-image-gallery
-```
-
-```bash
-pnpm create next-app --example with-cloudinary nextjs-image-gallery
-```
-
-## References
-
-- Cloudinary API: https://cloudinary.com/documentation/transformation_reference
-"# photographylab-front" 
+### Give Me ⭐ For Support
