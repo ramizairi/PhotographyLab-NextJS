@@ -22,6 +22,8 @@ const Footer = () => {
                 <Image
                   src="/logo/logo-white.png"
                   alt="PhotographyLab Logo"
+                  width={200}
+                  height={96}
                   className="h-24 w-auto"
                 />
               </div>

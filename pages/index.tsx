@@ -46,7 +46,7 @@ const Home: NextPage = () => {
           <ClubMembers />
           <Brands />
           <ClubsGallery />
-          <BlogPage />
+          <BlogPage noLayout={true} />
         </>
       )}
     </Layout>
