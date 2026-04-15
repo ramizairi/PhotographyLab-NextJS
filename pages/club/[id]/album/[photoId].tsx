@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import { AnimatePresence } from "framer-motion";
 import Layout from "../../../../components/layout";
 import Loading from "../../../../components/common/Loading";
-import ImageViewer from "../../../../components/ImageViewer";
 import { AlbumHeader } from "../../../../components/AlbumHeader";
 import AlbumGallery from "../../../../components/AlbumGallery";
+import Head from "next/head";
+import { createAlbumSlug, createClubSlug } from "../../../../utils/slug";
+import { getCloudinaryFetchUrl } from "../../../../utils/cloudinaryUrl";
 
-const AlbumPage = ({ album, error }) => {
-  const [selectedImageIndex, setSelectedImageIndex] = useState(null);
-
+const AlbumPage = ({ album, error, canonicalPath }) => {
   if (error) {
     return (  
       <div className="flex min-h-screen items-center justify-center bg-black">
@@ -23,18 +21,24 @@ const AlbumPage = ({ album, error }) => {
     return <Loading message="Loading album..." />;
   }
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://photographylab.tn";
+  const clubName = album.clubId?.name || "Photography Lab";
+  const description = `${album.title} photo album by ${clubName}.`;
+
   return (
     <Layout>
+      <Head>
+        <title>{`${album.title} | ${clubName} | Photography Lab`}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={`${siteUrl}${canonicalPath}`} />
+        <meta property="og:title" content={`${album.title} | ${clubName}`} />
+        <meta property="og:description" content={description} />
+        <meta
+          property="og:image"
+          content={getCloudinaryFetchUrl(album.coverImage, { width: 1200 })}
+        />
+      </Head>
       <div className="min-h-screen bg-black">
-        <AnimatePresence>
-          {selectedImageIndex !== null && (
-            <ImageViewer
-              imageIds={album.images.map((img) => img._id)}
-              initialIndex={selectedImageIndex}
-              onClose={() => setSelectedImageIndex(null)}
-            />
-          )}
-        </AnimatePresence>
         <AlbumHeader album={album} />
         <AlbumGallery
           images={album.images}
@@ -46,23 +50,24 @@ const AlbumPage = ({ album, error }) => {
 
 export async function getServerSideProps(context) {
   const { params } = context;
-  console.log("Params received:", params); // Debugging
 
   try {
-    // Extract albumId from the dynamic route (photoId in the URL)
-    const albumId = params?.photoId;
-    if (!albumId) {
+    const clubIdentifier = params?.id;
+    const albumIdentifier = params?.photoId;
+
+    if (!clubIdentifier || !albumIdentifier) {
       return {
         props: {
           album: null,
-          error: "Album ID is missing in the URL.",
+          error: "Club or album identifier is missing in the URL.",
         },
       };
     }
 
-    // Fetch album data from the API
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/albums/${albumId}`
+      `${process.env.NEXT_PUBLIC_API_URL}/albums/club/${encodeURIComponent(
+        clubIdentifier
+      )}/album/${encodeURIComponent(albumIdentifier)}`
     );
 
     if (!response.ok) {
@@ -70,15 +75,29 @@ export async function getServerSideProps(context) {
     }
 
     const album = await response.json();
+    const clubSlug = createClubSlug(
+      album.clubId?.name || album.clubId?.slug || clubIdentifier
+    );
+    const albumSlug = createAlbumSlug(album.title || album.slug || albumIdentifier);
+    const canonicalPath = `/club/${clubSlug}/album/${albumSlug}`;
+    const requestedPath = context.resolvedUrl.split("?")[0];
 
-    // Return the album data as props
+    if (requestedPath !== canonicalPath) {
+      return {
+        redirect: {
+          destination: canonicalPath,
+          permanent: true,
+        },
+      };
+    }
+
     return {
       props: {
         album,
+        canonicalPath,
       },
     };
   } catch (error) {
-    // Handle errors and return an error message
     return {
       props: {
         album: null,

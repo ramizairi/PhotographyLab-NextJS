@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Linkedin } from "lucide-react";
 import Link from "next/link";
+import { getCloudinaryFetchUrl } from "../../utils/cloudinaryUrl";
 interface MemberProps {
   member: {
     name: string;
@@ -13,8 +14,6 @@ interface MemberProps {
   };
   index: number;
 }
-
-const cloudinaryUrl = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/fetch/f_auto,q_auto,w_800/`;
 
 export default function MemberCard({ member, index }: MemberProps) {
   return (
@@ -40,12 +39,14 @@ export default function MemberCard({ member, index }: MemberProps) {
         {/* Image container with grayscale effect */}
         <div className="relative h-full w-full transform transition-transform duration-700 group-hover:scale-110">
           <Image
-            src={cloudinaryUrl + member.image}
+            src={getCloudinaryFetchUrl(member.image, {
+              width: 360,
+              quality: "auto:eco",
+            })}
             alt={member.name}
-            priority
-            layout="fill"
-            objectFit="cover"
-            className="grayscale filter transition-all duration-500 ease-out group-hover:grayscale-0"
+            fill
+            sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, (max-width: 1024px) 240px, 256px"
+            className="object-cover grayscale filter transition-all duration-500 ease-out group-hover:grayscale-0"
           />
         </div>
 

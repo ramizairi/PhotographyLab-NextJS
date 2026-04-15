@@ -1,10 +1,24 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import SectionTitle from "../common/SectionTitle"
+import {
+  getCloudinaryVideoUploadPosterUrl,
+  getCloudinaryVideoUploadUrl,
+} from "../../utils/cloudinaryUrl"
 
 const Features = () => {
   const [isDarkMode, setIsDarkMode] = useState(false)
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false)
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const videoPath = "/video/main-video.mov"
+  const configuredVideoUrl = process.env.NEXT_PUBLIC_CLOUDINARY_HOME_VIDEO_URL
+  const videoSrc = configuredVideoUrl
+    ? getCloudinaryVideoUploadUrl(configuredVideoUrl)
+    : videoPath
+  const videoPoster =
+    process.env.NEXT_PUBLIC_CLOUDINARY_HOME_VIDEO_POSTER_URL ||
+    getCloudinaryVideoUploadPosterUrl(configuredVideoUrl)
 
   useEffect(() => {
     const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
@@ -16,13 +30,49 @@ const Features = () => {
     return () => darkModeMediaQuery.removeEventListener("change", handleChange)
   }, [])
 
+  useEffect(() => {
+    if (!sectionRef.current) {
+      return
+    }
+
+    if (!("IntersectionObserver" in window)) {
+      setShouldLoadVideo(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoadVideo(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: "0px" },
+    )
+
+    observer.observe(sectionRef.current)
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section
+      ref={sectionRef}
       id="features"
       className="relative overflow-hidden h-screen w-full" // Changed to h-screen and w-full
     >
-      <video className="absolute left-0 top-0 h-full w-full object-cover" autoPlay loop muted playsInline>
-        <source src="/video/main-video.mov" type="video/mp4" />
+      <video
+        className="absolute left-0 top-0 h-full w-full object-cover"
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        poster={videoPoster}
+      >
+        {shouldLoadVideo && (
+          <source src={videoSrc} />
+        )}
         Your browser does not support the video tag.
       </video>
       <div
@@ -46,4 +96,3 @@ const Features = () => {
 }
 
 export default Features
-

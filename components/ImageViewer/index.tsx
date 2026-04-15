@@ -9,7 +9,7 @@ import {
   Download,
   Eye,
 } from "lucide-react";
-import { cloudonaryUrl } from "../../constant/Cloudinary";
+import { getCloudinaryFetchUrl } from "../../utils/cloudinaryUrl";
 import { Controls } from "./Controls";
 import ShareLoad from "../common/ShareLoad";
 import ImageLoad from "../common/ImageLoad";
@@ -20,16 +20,39 @@ declare global {
   }
 }
 
-const ImageViewer = ({ imageIds, initialIndex, onClose }) => {
+const EMPTY_IMAGES = [];
+const EMPTY_IMAGE_IDS = [];
+
+const ImageViewer = ({
+  images: providedImages = EMPTY_IMAGES,
+  imageIds = EMPTY_IMAGE_IDS,
+  initialIndex,
+  onClose,
+}) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [images, setImages] = useState(providedImages);
+  const [loading, setLoading] = useState(
+    providedImages.length === 0 && imageIds.length > 0
+  );
   const [direction, setDirection] = useState(0);
   const [showShareAnimation, setShowShareAnimation] = useState(false);
 
   useEffect(() => {
+    if (providedImages.length > 0) {
+      setImages(providedImages);
+      setLoading(false);
+      return;
+    }
+
+    if (imageIds.length === 0) {
+      setImages([]);
+      setLoading(false);
+      return;
+    }
+
     const fetchImages = async () => {
+      setLoading(true);
       try {
         const imagePromises = imageIds.map(async (id) => {
           const response = await fetch(
@@ -48,11 +71,16 @@ const ImageViewer = ({ imageIds, initialIndex, onClose }) => {
         setLoading(false);
       }
     };
+
     fetchImages();
-  }, [imageIds]);
+  }, [providedImages, imageIds]);
 
 
   const paginate = useCallback((newDirection) => {
+    if (images.length === 0) {
+      return;
+    }
+
     setDirection(newDirection);
     setCurrentIndex(
       (prev) => (prev + newDirection + images.length) % images.length
@@ -206,6 +234,10 @@ const ImageViewer = ({ imageIds, initialIndex, onClose }) => {
     );
   }
 
+  if (!images.length) {
+    return null;
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -271,13 +303,14 @@ const ImageViewer = ({ imageIds, initialIndex, onClose }) => {
           >
             {images[currentIndex] && (
               <Image
-                src={
-                  cloudonaryUrl + images[currentIndex].path ||
-                  "/placeholder.svg"
-                }
+                src={getCloudinaryFetchUrl(images[currentIndex].path, {
+                  width: 1800,
+                  quality: "auto:good",
+                })}
                 alt={`Gallery image ${currentIndex + 1}`}
                 fill
                 priority
+                sizes="100vw"
                 className="object-contain"
               />
             )}
@@ -315,9 +348,14 @@ const ImageViewer = ({ imageIds, initialIndex, onClose }) => {
                 ${index === currentIndex ? "ring-2 ring-blue-400" : ""}`}
             >
               <Image
-                src={cloudonaryUrl + image.path || "/placeholder.svg"}
+                src={getCloudinaryFetchUrl(image.path, {
+                  width: 160,
+                  quality: "auto:eco",
+                })}
                 alt={`Thumbnail ${index + 1}`}
                 fill
+                loading={index === currentIndex ? "eager" : "lazy"}
+                sizes="80px"
                 className="object-cover"
               />
             </motion.button>

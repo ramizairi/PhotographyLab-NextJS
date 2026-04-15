@@ -10,23 +10,30 @@ import { Camera, Eye } from "lucide-react";
 import Layout from "../../../components/layout";
 import Loading from "../../../components/common/Loading";
 import Head from "next/head";
+import { createAlbumSlug, createClubSlug } from "../../../utils/slug";
+import { getCloudinaryFetchUrl } from "../../../utils/cloudinaryUrl";
 
 const AlbumCard = ({
   _id,
+  slug,
   title,
   eventDate,
   coverImage,
   photoCount,
   views,
   photographers,
+  clubSlug,
 }) => (
   <Link
-    href={`${window.location.href}/album/${_id}`}
+    href={`/club/${clubSlug}/album/${createAlbumSlug(title || slug || _id)}`}
     className="group block overflow-hidden rounded-xl bg-gradient-to-br from-black to-gray-800 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
   >
     <div className="relative aspect-[4/3] w-full overflow-hidden">
       <Image
-        src={coverImage || "/placeholder.svg"}
+        src={getCloudinaryFetchUrl(coverImage || "/placeholder.svg", {
+          width: 720,
+          quality: "auto:eco",
+        })}
         alt={title}
         fill
         quality={50}
@@ -86,6 +93,7 @@ const AlbumCard = ({
 export default function ClubPage() {
   const router = useRouter();
   const { id } = router.query;
+  const clubIdentifier = Array.isArray(id) ? id[0] : id;
 
   const [club, setClub] = useState(null);
   const [albums, setAlbums] = useState([]);
@@ -95,13 +103,25 @@ export default function ClubPage() {
   useEffect(() => {
     const fetchData = async () => {
       // Don't fetch if id is not available yet
-      if (!id) return;
+      if (!clubIdentifier) return;
 
       try {
         const albumsResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/albums/club/${id}`
+          `${process.env.NEXT_PUBLIC_API_URL}/albums/club/${encodeURIComponent(
+            clubIdentifier
+          )}`
         );
-        console.log(albumsResponse);
+
+        if (albumsResponse.status === 404) {
+          setAlbums([]);
+          setLoading(false);
+          return;
+        }
+
+        if (!albumsResponse.ok) {
+          throw new Error("Failed to fetch albums");
+        }
+
         const clubAlbums = await albumsResponse.json();
 
         if (clubAlbums.length > 0) {
@@ -118,9 +138,9 @@ export default function ClubPage() {
     };
 
     fetchData();
-  }, [id]);
+  }, [clubIdentifier]);
 
-  if (!id || loading) {
+  if (!clubIdentifier || loading) {
     return <Loading message="Loading club albums ..." />;
   }
 
@@ -140,6 +160,8 @@ export default function ClubPage() {
     );
   }
 
+  const clubSlug = createClubSlug(club?.name || club?.slug || clubIdentifier);
+
   return (
     <Layout>
       <Head>
@@ -152,7 +174,10 @@ export default function ClubPage() {
       <div className="min-h-screen bg-black text-gray-100">
         <header className="relative h-96 overflow-hidden">
           <Image
-            src={club.image || "/placeholder.svg"}
+            src={getCloudinaryFetchUrl(club.image || "/placeholder.svg", {
+              width: 1600,
+              quality: "auto:eco",
+            })}
             alt={club.name}
             fill
             quality={50}
@@ -179,7 +204,7 @@ export default function ClubPage() {
             ) : (
               <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                 {albums.map((album) => (
-                  <AlbumCard key={album._id} {...album} />
+                  <AlbumCard key={album._id} {...album} clubSlug={clubSlug} />
                 ))}
               </div>
             )}

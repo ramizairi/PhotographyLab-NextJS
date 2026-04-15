@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Calendar, Camera, Eye } from 'lucide-react';
-import { cloudonaryUrl } from '../../constant/Cloudinary';
+import { getCloudinaryFetchUrl } from '../../utils/cloudinaryUrl';
 
 export const AlbumHeader = ({ album }) => (
     <motion.header
@@ -10,10 +10,11 @@ export const AlbumHeader = ({ album }) => (
         className="relative h-96 w-full"
     >
         <Image
-            src={cloudonaryUrl + album.coverImage}
+            src={getCloudinaryFetchUrl(album.coverImage, { width: 1600 })}
             alt={album.title}
             fill
             priority
+            sizes="100vw"
             className="object-cover opacity-60"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black" />

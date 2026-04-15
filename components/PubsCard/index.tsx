@@ -7,6 +7,7 @@ import Logo from "../../components/Icons/Logo";
 import Modal from "../../components/Modal";
 import { useLastViewedPhoto } from "../../utils/useLastViewedPhoto";
 import { CustomCursor } from "../custom-cursor";
+import { getCloudinaryFetchUrl } from "../../utils/cloudinaryUrl";
 
 export default function ClubGallery() {
   const router = useRouter();
@@ -26,39 +27,29 @@ export default function ClubGallery() {
 
       try {
         // Fetch albums for this club
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/albums/club/${clubId}`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/albums/club/${encodeURIComponent(
+            String(clubId)
+          )}?includeImages=true`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch albums");
         }
         const albumsData = await response.json();
         setAlbums(albumsData);
 
-        // Fetch detailed image data for all images in all albums
-        const imagePromises = albumsData.flatMap((album) =>
-          album.images.map(async (img) => {
-            try {
-              const imageResponse = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/api/images/${img._id}`
-              );
-              if (!imageResponse.ok) throw new Error("Failed to fetch image");
-              const imageData = await imageResponse.json();
-              return {
-                id: imageData._id,
-                path: imageData.path,
-                view: imageData.view,
-                albumId: album._id,
-                albumTitle: album.title,
-                eventDate: album.eventDate,
-              };
-            } catch (error) {
-              console.error("Error fetching image:", error);
-              return null;
-            }
-          })
+        const imagesData = albumsData.flatMap((album) =>
+          (album.images || []).map((img) => ({
+            id: img._id,
+            path: img.path,
+            view: img.views ?? img.view ?? 0,
+            albumId: album._id,
+            albumTitle: album.title,
+            eventDate: album.eventDate,
+          }))
         );
 
-        const imagesData = await Promise.all(imagePromises);
-        setAllImages(imagesData.filter((img) => img !== null));
+        setAllImages(imagesData.filter((img) => img.path));
       } catch (err) {
         console.error("Error fetching data:", err);
         setError(err.message);
@@ -152,7 +143,10 @@ export default function ClubGallery() {
                 alt={`Photo from ${albumTitle}`}
                 className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
                 style={{ transform: "translate3d(0, 0, 0)" }}
-                src={path}
+                src={getCloudinaryFetchUrl(path, {
+                  width: 720,
+                  quality: "auto:eco",
+                })}
                 width={720}
                 height={480}
                 sizes="(max-width: 640px) 100vw,

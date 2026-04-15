@@ -2,6 +2,7 @@ import { formatDistanceToNow, format } from "date-fns";
 import { Calendar, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { getCloudinaryFetchUrl } from "../../utils/cloudinaryUrl";
 
 // Define the Article type based on the mongoose schema
 export interface Article {
@@ -13,7 +14,6 @@ export interface Article {
   postedAt: string;
   tags?: string[];
 }
-const cloudinaryUrl = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/fetch/f_auto,q_auto,w_800/`;
 export function BlogCard({ article }: { article: Article }) {
   // Safety check - if article is somehow a Promise, return a loading placeholder
   if (
@@ -47,9 +47,13 @@ export function BlogCard({ article }: { article: Article }) {
       <div className="relative h-full overflow-hidden rounded-xl bg-gray-100 shadow-lg shadow-black/10 transition-all duration-300 hover:bg-black hover:shadow-xl hover:shadow-black/20">
         <div className="relative h-60 w-full overflow-hidden">
           <Image
-            src={cloudinaryUrl + article.image || "/placeholder.svg"}
+            src={getCloudinaryFetchUrl(article.image || "/placeholder.svg", {
+              width: 720,
+              quality: "auto:eco",
+            })}
             alt={article.name}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover object-center grayscale filter transition-all duration-700 ease-out group-hover:scale-110 group-hover:grayscale-0"
           />
 

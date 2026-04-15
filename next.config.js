@@ -6,7 +6,7 @@ module.exports = {
       {
         protocol: "https",
         hostname: "res.cloudinary.com",
-        pathname: "/my-account/**",
+        pathname: "/**",
       },
       {
         protocol: "https",

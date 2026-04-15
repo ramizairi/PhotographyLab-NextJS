@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import axios from "axios";
 import H1 from "../common/H1Test";
+import { createClubSlug } from "../../utils/slug";
+import { getCloudinaryFetchUrl } from "../../utils/cloudinaryUrl";
 
 export default function ClubsGallery() {
   const [clubs, setClubs] = useState([]);
@@ -74,7 +76,10 @@ export default function ClubsGallery() {
           >
             <div className="relative h-96">
               <Image
-                src={club.image || "/placeholder.svg"}
+                src={getCloudinaryFetchUrl(club.image || "/placeholder.svg", {
+                  width: 720,
+                  quality: "auto:eco",
+                })}
                 alt={club.name}
                 fill
                 className="object-cover object-center grayscale filter transition-all duration-300 ease-in-out group-hover:filter-none"
@@ -88,7 +93,7 @@ export default function ClubsGallery() {
                 {club.name}
               </h2>
               <Link
-                href={`/club/${club._id}`}
+                href={`/club/${createClubSlug(club.name || club.slug || club._id)}`}
                 className="inline-flex items-center rounded-full bg-white/20 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm transition-all duration-300 hover:border-black hover:bg-transparent hover:text-black group-hover:-translate-y-2"
               >
                 See More
